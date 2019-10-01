@@ -32,7 +32,6 @@ pipeline{
         }
         stage('worker-package'){
             when{
-              branch 'master'
               changeset "**/worker/**"
             }
             steps{
