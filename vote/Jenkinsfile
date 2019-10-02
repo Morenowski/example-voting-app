@@ -49,7 +49,7 @@ pipeline{
                 docker.withRegistry('https://index.vote.io/v1/', 'dockerlogin') {
                     def workerImage = docker.build("morenowski/vote:v${env.BUILD_ID}", "./vote")
                     workerImage.push()
-                    workerImage.push("${env.BRANCH_NAME}"")
+                    workerImage.push("${env.BRANCH_NAME}")
                 }
               }
             }
