@@ -1,13 +1,14 @@
 pipeline{
 
-agent{
-  docker{
-    image 'node:8.16.0-alpine'
-  }
-}
+agent none
 
     stages{
         stage('Build'){
+            agent{
+              docker{
+                image 'node:8.16.0-alpine'
+              }
+            }
             when{
              changeset "**/result/**"
             }
@@ -19,6 +20,11 @@ agent{
             }
         }
         stage('test'){
+            agent{
+              docker{
+                image 'node:8.16.0-alpine'
+              }
+            }
             when{
               changeset "**/result/**"
             }
@@ -27,6 +33,23 @@ agent{
                 dir('result'){
                   sh 'npm test'
                 }
+            }
+        }
+        stage('worker-package'){
+            agent any
+            when{
+              changeset "**/result/**"
+              branch 'master'
+            }
+            steps{
+              echo 'Packaging result app with docker '
+              script{
+                docker.withRegistry('https://index.result.io/v1/', 'dockerlogin') {
+                    def workerImage = docker.build("morenowski/result:v${env.BUILD_ID}", "./result")
+                    workerImage.push()
+                    workerImage.push("${env.BRANCH_NAME}")
+                }
+              }
             }
         }
     }
