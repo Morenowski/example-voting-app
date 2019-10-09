@@ -35,7 +35,7 @@ agent none
                 }
             }
         }
-        stage('worker-package'){
+        stage('voting-package'){
             agent any
             when{
               changeset "**/result/**"
