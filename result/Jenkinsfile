@@ -42,7 +42,7 @@ agent none
               branch 'master'
             }
             steps{
-              echo 'Packaging result app with docker '
+              echo 'Packaging result app with docker'
               script{
                 docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
                     def workerImage = docker.build("morenowski/result:v${env.BUILD_ID}", "./result")
@@ -57,7 +57,7 @@ agent none
     post{
 
         always {
-            echo 'Build pipeline for result app is complete... '
+            echo 'Build pipeline for result app is complete...  '
         }
         failure{
            slackSend (channel: "instavote-cd", message: "Build Failed - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)")
