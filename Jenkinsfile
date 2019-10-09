@@ -63,7 +63,7 @@ pipeline{
               branch 'master'
             }
             steps{
-              echo 'Packaging worker app with docker '
+              echo 'Packaging worker app with docker  '
               script{
                 docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
                     def workerImage = docker.build("morenowski/worker:v${env.BUILD_ID}", "./worker")

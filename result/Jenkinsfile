@@ -35,7 +35,7 @@ agent none
                 }
             }
         }
-        stage('voting-package'){
+        stage('worker-package'){
             agent any
             when{
               changeset "**/result/**"
@@ -57,7 +57,7 @@ agent none
     post{
 
         always {
-            echo 'Build pipeline for result app is complete...'
+            echo 'Build pipeline for result app is complete... '
         }
         failure{
            slackSend (channel: "instavote-cd", message: "Build Failed - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)")
