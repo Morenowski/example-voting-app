@@ -38,7 +38,7 @@ pipeline{
                 }
             }
         }
-        stage('worker-package'){
+        stage('result-package'){
             agent any
             when{
               changeset "**/vote/**"
