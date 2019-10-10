@@ -178,6 +178,9 @@ pipeline{
             }
         }
         stage('Sonarqube') {
+          when {
+            branch 'master'
+          }
           agent any
           environment{
             sonarpath = tool 'SonarScanner'
